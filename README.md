@@ -1,6 +1,6 @@
-<h1 align ="center" > Project Analytics </h1>
+<h1 align ="center" > Project Gateway </h1>
 
-<h4 align ="center"> Analytical part of the web system project </h4>
+<h4 align ="center"> Gateway part of the web system project </h4>
 
 <br/>
 <p align="center">
@@ -8,8 +8,8 @@
       <img src="https://img.shields.io/badge/project-Backend-blue" /></a> &#xa0;
     <a href="https://github.com/ebercalderon/projectFrontend">
       <img src="https://img.shields.io/badge/project-Frontend-blue" /></a> &#xa0;     
-    <a href="https://github.com/ebercalderon/projectGateway">
-      <img src="https://img.shields.io/badge/project-Gateway-blueviolet" /></a>
+    <a href="https://github.com/ebercalderon/projectAnalytics">
+      <img src="https://img.shields.io/badge/project-Analytics-blueviolet" /></a>
 </p>
 <br/>
 
@@ -43,7 +43,11 @@ Config.env
 ```
 #  ---  example  ---
 
-ERPGATEWAY_URL=http://localhost:XXXX/
+GATEWAY_PORT=0000
+ERPBACK_URL=http://localhost:0000/
+ERPANALYSIS_URL=http://localhost:0000/
+ERPREGISTRATION_URL=http://localhost:0000/
+TIMEZONE=continent/city
 ```
 
 Deploy and run
