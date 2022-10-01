@@ -120,6 +120,33 @@ func getRegistroConfirmacion(c *gin.Context) {
 	c.Data(http.StatusOK, "text/html; charset=utf-8", resContent)
 }
 
+func postRecommendation(c *gin.Context) {
+	body, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	url := os.Getenv("ERPRECOMMENDER_URL")
+	request, reqErr := http.NewRequest("POST", url, bytes.NewBuffer(body))
+	if reqErr != nil {
+		fmt.Printf("The HTTP request failed with error %s\n", reqErr)
+		panic(reqErr)
+	}
+	request.Header.Set("Content-type", "application/json")
+
+	client := &http.Client{Timeout: time.Second * 10}
+	response, err := client.Do(request)
+	if err != nil {
+		fmt.Printf("The HTTP request failed with error %s\n", err)
+		panic(err)
+	}
+
+	defer response.Body.Close()
+
+	resContent, _ := ioutil.ReadAll(response.Body)
+	c.JSON(http.StatusOK, string(resContent))
+}
+
 func main() {
 	errEnv := godotenv.Load(".env")
 	if errEnv != nil {
@@ -134,6 +161,7 @@ func main() {
 	router.GET("/api/registro/confirmacion/:token", getRegistroConfirmacion)
 	router.POST("/api/registro/confirmacion/:token", postRegistroConfirmacion)
 	router.POST("/api/graphql", postGraphQL)
+	router.POST("/api/recommender", postRecommendation)
 
 	router.Run(fmt.Sprintf("0.0.0.0:%s", os.Getenv("GATEWAY_PORT")))
 
